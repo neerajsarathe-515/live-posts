@@ -8,6 +8,7 @@ import { PostComponent } from './post/post.component';
 import { AuthComponent } from './auth/auth.component';
 import { PostEditComponent } from './post-edit/post-edit.component';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes : Routes = [
   {
@@ -27,7 +28,12 @@ const routes : Routes = [
     component: AuthComponent,
   },
   {
-    path: 'post-add',
+    path: 'post-edit',
+    component: PostEditComponent,
+  },
+   
+  {
+    path: 'post-edit/:index',
     component: PostEditComponent,
   }
 ];
@@ -41,9 +47,11 @@ const routes : Routes = [
     AuthComponent,
     PostEditComponent
   ],
+
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    RouterModule.forRoot(routes),
+    ReactiveFormsModule                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
   ],
   providers: [],
   bootstrap: [AppComponent]

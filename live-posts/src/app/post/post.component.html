@@ -5,4 +5,6 @@
 <img src="{{post?.imagePath}}" alt="" class="img-responsive">
 <p>{{post?.author}}</p>
 <p>{{post?.datetimeCreated}}</p>
-<button class="btn btn-info">Edit</button> | <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+<!-- <p>{{post?.numberOfLikes}}</p> -->
+<button class="btn btn-info" (click)="onEdit()">Edit</button> | <button class="btn btn-danger" (click)="onDelete()">Delete</button> |
+<button class="btn btn-warning" (click)="likePost()"> Like ({{post?.numberOfLikes}})</button>
