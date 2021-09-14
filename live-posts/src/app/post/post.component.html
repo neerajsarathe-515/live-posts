@@ -5,4 +5,4 @@
 <img src="{{post?.imagePath}}" alt="" class="img-responsive">
 <p>{{post?.author}}</p>
 <p>{{post?.datetimeCreated}}</p>
-<button class="btn btn-info">Edit</button> | <button class="btn btn-danger">Delete</button>
+<button class="btn btn-info">Edit</button> | <button class="btn btn-danger" (click)="onDelete()">Delete</button>
