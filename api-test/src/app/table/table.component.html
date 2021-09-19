@@ -12,23 +12,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td colspan="2">Larry the Bird</td>
-          <td>@twitter</td>
+        <tr *ngFor="let item of allStocks">
+          <td>{{item.obj}}</td>
+          <td>{{item.sname}}</td>
+          <td>{{item.qty}}</td>
+          <td>{{item.cts}}</td>
+          <td>{{item.uts}}</td>
+          <td>{{item.txn_id}}</td>
+          <td>{{item.tby}}</td>
         </tr>
       </tbody>
     </table>
-  </div>
+</div>

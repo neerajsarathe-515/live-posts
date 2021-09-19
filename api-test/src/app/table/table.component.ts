@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
@@ -10,13 +11,21 @@ import { PostService } from '../post.service';
 export class TableComponent implements OnInit {
 
   @Input() post?: Post;
-  itemList : Post[] = [];
 
-  constructor(private postService: PostService) { }
+  public allStocks: any;
+  
 
-  ngOnInit(): void {
-    console.log(this.post);
-    this.itemList = this.postService.getPosts();
-  }
+  constructor(private postService: PostService, private http:HttpClient) { }
 
+ngOnInit(): void {
+
+   this.postService.getPosts()
+   .pipe()
+   .subscribe(data=>{
+     this.allStocks = data;
+   }
+
+   )
+    
+}
 }

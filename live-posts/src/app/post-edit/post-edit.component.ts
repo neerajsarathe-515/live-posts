@@ -20,6 +20,8 @@ export class PostEditComponent implements OnInit {
     let description = '';
     let imagePath = '';
 
+    
+
     this.route.params.subscribe((params: Params) =>{
       if(params['index']){
         console.log(params['index']);
