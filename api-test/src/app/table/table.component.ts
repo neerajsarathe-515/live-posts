@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { Post } from '../post.model';
+import { Router } from '@angular/router';
 import { PostService } from '../post.service';
 
 @Component({
@@ -10,22 +10,31 @@ import { PostService } from '../post.service';
 })
 export class TableComponent implements OnInit {
 
-  @Input() post?: Post;
 
   public allStocks: any;
-  
 
-  constructor(private postService: PostService, private http:HttpClient) { }
+
+  constructor(private postService: PostService, private http:HttpClient, private router: Router) { }
 
 ngOnInit(): void {
+
 
    this.postService.getPosts()
    .pipe()
    .subscribe(data=>{
+     console.log(data);
+
      this.allStocks = data;
    }
 
    )
-    
+
 }
+
+changeStatus(){
+  this.router.navigate(['/login']);
+  localStorage.clear();
+
+}
+
 }

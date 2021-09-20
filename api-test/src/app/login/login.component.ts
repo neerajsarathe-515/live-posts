@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, Routes } from '@angular/router';
+import { Router} from '@angular/router';
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-login',
@@ -10,20 +11,15 @@ import { Router, Routes } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   form !: FormGroup;
-  constructor(private router: Router) { }
-  isLoggedIn = false;
+  constructor(private router: Router, private postServices : PostService) { }
 
-  
+  public access: any;
+  public uname: any;
+  public pwd: any;
+
   ngOnInit(): void {
-    let value = localStorage.getItem(JSON.stringify(this.isLoggedIn)) === 'true';
 
-    console.log(value);
-
-    if(value){
-      this.router.navigate(['/table']);
-    }else{
-      this.router.navigate(['/true']);
-    }
+    this.checkUser();
 
     let username = '';
     let password = '';
@@ -36,20 +32,36 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+    this.uname = this.form.value.username;
+    this.pwd = this.form.value.password
+    const isLoggedIn = localStorage.getItem('LoginStatus');
     console.log('submission confirmed');
-    // console.log( this.form.value.username);
-    // console.log(this.form.value.password);
 
-    if(this.form.value.username =='deeploop' && this.form.value.password =='deeploop'){
-
+    if(this.uname =='deeploop' && this.pwd =='deeploop'){
       console.log('navigating to tables');
-      this.isLoggedIn = true;
-      localStorage.setItem('LoginMode', JSON.stringify(this.isLoggedIn));
+      localStorage.setItem('UName',this.uname);
+      localStorage.setItem('LoginStatus', JSON.stringify(!isLoggedIn));
+      this.postServices.getAccess().pipe().subscribe(data =>{
+
+        if((data?.success)){
+          localStorage.setItem('access',data?.data?.accessToken);
+          this.router.navigate(['/table']);
+        }
+        else{
+          alert("Unable to fetch data");
+        }
+      })
     }else{
       alert("Enter valid UserName/ Password");
-      
+
     }
-    
   }
 
+  checkUser(){
+    if(localStorage.getItem('LoginStatus')){
+      this.router.navigate(['/table']);
+    }else{
+      this.router.navigate(['/login']);
+    }
+  }
 }
