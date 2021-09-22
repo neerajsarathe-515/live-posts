@@ -7,12 +7,11 @@ import { TableComponent } from './table/table.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SetIpComponent } from './set-ip/set-ip.component';
 
 const routes :Routes = [
   {
     path: '',
-    redirectTo: '/setIp',
+    redirectTo: '/login',
     pathMatch: 'full',
 
   },
@@ -25,10 +24,6 @@ const routes :Routes = [
   {
   path: 'table',
   component: TableComponent,
-},
-{
-  path: 'setIp',
-  component: SetIpComponent,
 }
 ];
 
@@ -37,7 +32,6 @@ const routes :Routes = [
     AppComponent,
     TableComponent,
     LoginComponent,
-    SetIpComponent
   ],
   imports: [
     BrowserModule,

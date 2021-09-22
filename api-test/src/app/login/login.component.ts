@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router} from '@angular/router';
 import { PostService } from '../post.service';
 
@@ -10,8 +10,9 @@ import { PostService } from '../post.service';
 })
 export class LoginComponent implements OnInit {
 
-  form !: FormGroup;
-  constructor(private router: Router, private postServices : PostService) { }
+  loginform !: FormGroup;
+  
+  constructor(private router: Router, private postServices : PostService, private formBuilder: FormBuilder) { }
 
   public access: any;
   public uname: any;
@@ -24,16 +25,21 @@ export class LoginComponent implements OnInit {
     let username = '';
     let password = '';
 
-    this.form = new FormGroup({
-      username: new FormControl(username, [Validators.required, Validators.minLength(3) ,Validators.maxLength(20)]),
-      password: new FormControl(password, Validators.required),
-    })
+    // this.loginform = new FormGroup({
+    //   username: new FormControl(username, [Validators.required, Validators.minLength(3) ,Validators.maxLength(20)]),
+    //   password: new FormControl(password, Validators.required),
+    // })
+
+    this.loginform = this.formBuilder.group({
+      username: [],
+      password: []
+    });
 
   }
 
   onSubmit(){
-    this.uname = this.form.value.username;
-    this.pwd = this.form.value.password
+    this.uname = this.loginform.value.username;
+    this.pwd = this.loginform.value.password;
     const isLoggedIn = localStorage.getItem('LoginStatus');
     console.log('submission confirmed');
 
