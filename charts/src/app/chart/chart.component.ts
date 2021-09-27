@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart, LinearScale, BarController, CategoryScale, BarElement } from 'node_modules/chart.js'
+import { EChartsOption } from 'echarts';
+import { Subscription } from 'rxjs';
+import { BasicLineEchart } from '../echart.model';
+import { EchartService } from '../echart.service';
+
 
 @Component({
   selector: 'app-chart',
@@ -8,45 +12,79 @@ import { Chart, LinearScale, BarController, CategoryScale, BarElement } from 'no
 })
 export class ChartComponent implements OnInit {
 
-  constructor() { }
+  subscription !: Subscription;
+  chartOption !: EChartsOption;
+
+  constructor(private echartService: EchartService) { }
 
   ngOnInit(): void {
-    Chart.register(LinearScale, BarController, CategoryScale, BarElement);
-    var myChart = new Chart("myChart", {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                  ],
-                  borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
+    this.subscription = this.echartService.getBasicLineEchart().subscribe( data =>{
+      this.initBasicLineChart(data);
     });
-
   }
 
+  private initBasicLineChart(chartData: BasicLineEchart[]){
+      this.chartOption = {
+        title: {
+          text: 'Stacked Line'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: 'Email',
+            type: 'line',
+            stack: 'Total',
+            data: [120, 132, 101, 134, 90, 230, 210]
+          },
+          {
+            name: 'Union Ads',
+            type: 'line',
+            stack: 'Total',
+            data: [220, 182, 191, 234, 290, 330, 310]
+          },
+          {
+            name: 'Video Ads',
+            type: 'line',
+            stack: 'Total',
+            data: [150, 232, 201, 154, 190, 330, 410]
+          },
+          {
+            name: 'Direct',
+            type: 'line',
+            stack: 'Total',
+            data: [320, 332, 301, 334, 390, 330, 320]
+          },
+          {
+            name: 'Search Engine',
+            type: 'line',
+            stack: 'Total',
+            data: [820, 932, 901, 934, 1290, 1330, 1320]
+          }
+        ]
+      }
+  }
 }
