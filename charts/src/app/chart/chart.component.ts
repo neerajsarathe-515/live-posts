@@ -26,42 +26,54 @@ export class ChartComponent implements OnInit {
   private initBasicLineChart(chartData: BasicLineEchart[]){
       this.chartOption = {
 
-          title: {
-            text: 'Stacked Line'
-          },
-          tooltip: {
-            trigger: 'axis',
-            show: true
-          },
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          toolbox: {
-            feature: {
-              saveAsImage: {}
-            }
-          },
-          xAxis: {
-            type: 'category',
-            boundaryGap: false,
+        title: {
+          text: 'Stacked Line'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['Email', 'Search Engine']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: chartData.map(m=>({
+            value: m.name
+          }))
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: 'Email',
+            type: 'line',
+            stack: 'Total',
             data: chartData.map(m=>({
-              name: m.name
+              value: m.value
             }))
           },
-          yAxis: {
-            type: 'value'
-          },
-          series: [
-            {
-              data: chartData.map(m=>({
-                value: m.value
-              })),
-              type: 'line'
-            }
-          ]
+          {
+            name: 'Search Engine',
+            type: 'line',
+            stack: 'Total',
+            data: [820, 932, 901, 934, 1290, 1330, 1320]
+          }
+        ]
+
+
         };
 
 
