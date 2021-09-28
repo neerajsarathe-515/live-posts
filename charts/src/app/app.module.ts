@@ -5,19 +5,21 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChartComponent } from './chart/chart.component';
+import { EchartService } from './echart.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChartComponent
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxEchartsModule,
-    HttpClientModule
+    NgxEchartsModule.forRoot({echarts: () => import('echarts')}),
+    HttpClientModule,
+
   ],
-  providers: [],
+  providers: [EchartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
