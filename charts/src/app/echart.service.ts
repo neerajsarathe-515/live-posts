@@ -12,7 +12,7 @@ export class EchartService {
 
   getBasicLineEchart(): Observable<BasicLineEchart[]> {
 
-    return this.http.get<BasicLineEchart[]>('assets\echarts\basic-line-chart.json');
+    return this.http.get<BasicLineEchart[]>('assets/echarts/basic-line-chart.json');
 
   }
 }
