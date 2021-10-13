@@ -18,7 +18,7 @@ export class EchartService {
 
   getBasicPieEchart(): Observable<BasicPieEchart[]> {
 
-    return this.http.get<BasicPieEchart[]>('assets/echarts/basic-pie-chart.json');
+    return this.http.get<BasicLineEchart[]>('assets/echarts/basic-pie-chart.json');
 
   }
 }
